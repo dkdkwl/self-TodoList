@@ -8,3 +8,44 @@
 // 진행중 끝남 탭을 누르면, 언더바가 이동한다.
 // 끝남탭은, 끝난아이템만, 진행중탭은 진행중인 아이템만
 // 전체탭을 누르면 다시 전체아이템으로 돌아옴
+
+let userInput = document.querySelector(".task-input");
+let buttonAdd = document.querySelector(".button-add");
+let taskList = [];
+
+
+buttonAdd.addEventListener("click",addTask);
+
+
+function addTask(){
+    let task = {
+        id : randomIDGenerate(),
+        taskContent : userInput.value,
+        isComplete : false
+    }
+    taskList.push(task);
+    render();
+}
+
+function render(){
+    let taskBoard ="";
+    for(let i=0; i < taskList.length; i++){
+        taskBoard += `<div class="task">
+            <span>${taskList[i].taskContent}</span>
+            <div class="button-box">
+            <button><i class="fa fa-check" aria-hidden="true"></i></button>
+            <button><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        `
+    }
+    console.log(taskBoard);
+    document.querySelector("#task-board").innerHTML = taskBoard;
+}
+
+
+function randomIDGenerate(){
+    return "_" + Math.random().toString(36).substr(2, 9);
+}
+
+

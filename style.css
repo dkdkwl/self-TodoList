@@ -24,7 +24,7 @@ body {
   border: none;
   border: 1px solid blanchedalmond;
 }
-.task-input:focus {
+/* .task-input:focus {
   outline: none;
   border-bottom: 3px solid blanchedalmond;
   border-left: none;
@@ -32,7 +32,7 @@ body {
   border-top: none;
   transition: 0.5s;
   padding-top: 35px;
-}
+} */
 
 .task-input + label > span {
   font-weight: 300;
