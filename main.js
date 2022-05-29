@@ -1,20 +1,27 @@
 // 유저가 값을 입력한다. ok
-// +버튼을 클릭하면, 할일이 추가된다. ok
+// +버튼을 클릭하면, 할일이 추가된다. ok --
 // delete버튼을 누르면 할일이 삭제된다.ok
-// check버튼을 누르면 할일이 끝나면서 밑줄이 간다.
-// 1. check 버튼을 클릭하는 순간 true false
-// 2. true이면 끝난걸로 간주하고 밑줄 보여주기
-// 3. false 이면 안끄ㅌ난걸로 알고 간주하고 보야주기
-// 진행중 끝남 탭을 누르면, 언더바가 이동한다.
-// 끝남탭은, 끝난아이템만, 진행중탭은 진행중인 아이템만
+// check버튼을 누르면 할일이 끝나면서 밑줄이 간다. ok --
+// 1. check 버튼을 클릭하는 순간 true ok --
+// 2. true이면 끝난걸로 간주하고 밑줄 보여주기 ok
+// 3. false 이면 안끄ㅌ난걸로 알고 간주하고 보야주기  ok
+// 진행중 끝남 탭을 누르면, 언더바가 이동한다. none
+// 끝남탭은, 끝난아이템만, 진행중탭은 진행중인 아이템만 ok-----
 // 전체탭을 누르면 다시 전체아이템으로 돌아옴
 
 let userInput = document.querySelector(".task-input");
 let buttonAdd = document.querySelector(".button-add");
+let userFilter = document.querySelectorAll(".tab-type > div");
 let taskList = [];
-
-
+let currentState = "tab-all";
+let filterList = [];
 buttonAdd.addEventListener("click",addTask);
+
+for(let i=1;i<userFilter.length;i++){
+    userFilter[i].addEventListener("click",function(event){ //----
+        filter(event);
+    });
+}
 
 
 function addTask(){
@@ -27,8 +34,9 @@ function addTask(){
     render();
 }
 
-function render(){
+function render(currentState){
     let taskBoard ="";
+
     for(let i=0; i < taskList.length; i++){
         if(taskList[i].isComplete == true){
             taskBoard += `<div class="task task-done">
@@ -67,12 +75,32 @@ function taskDelete(id){
 function taskCheck(id){
     for(let i=0; i < taskList.length; i++){
         if(taskList[i].id == id){
-            taskList[i].isComplete == true; //이거는 왜 안될까??
+            //taskList[i].isComplete == true; //이거는 왜 안될까?? 처음이라도 돌아야 될텐데
             taskList[i].isComplete = !taskList[i].isComplete;
             break;
         }
     }
     render();
+}
+
+function filter(event){
+    currentState = event.target.id;
+    if( currentState == "tab-all"){
+        render();
+        console.log("실행0")
+    }else if( currentState == "tab-done"){
+        console.log("실행1")
+        for(let i=0; i < taskList.length; i++){
+            if(taskList[i].isComplete == false){
+                filterList.push(taskList[i]);
+            }
+        }
+        taskList = filterList;
+
+        render();
+    }
+    
+
 }
 
 function randomIDGenerate(){
