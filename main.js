@@ -1,5 +1,5 @@
-// 유저가 값을 입력한다.
-// +버튼을 클릭하면, 할일이 추가된다.
+// 유저가 값을 입력한다. ok
+// +버튼을 클릭하면, 할일이 추가된다. ok
 // delete버튼을 누르면 할일이 삭제된다.
 // check버튼을 누르면 할일이 끝나면서 밑줄이 간다.
 // 1. check 버튼을 클릭하는 순간 true false
@@ -34,15 +34,25 @@ function render(){
             <span>${taskList[i].taskContent}</span>
             <div class="button-box">
             <button><i class="fa fa-check" aria-hidden="true"></i></button>
-            <button><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button><i onClick="taskDelete('${taskList[i].id}');" class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
         </div>
         `
     }
-    console.log(taskBoard);
+    //console.log(taskBoard);
     document.querySelector("#task-board").innerHTML = taskBoard;
 }
 
+
+function taskDelete(id){
+    for(let i=0; i < taskList.length; i++){
+        if(taskList[i].id == id){
+            taskList.splice(i,1)
+            break;
+        }
+    }
+    render();
+}
 
 function randomIDGenerate(){
     return "_" + Math.random().toString(36).substr(2, 9);
