@@ -19,6 +19,7 @@ buttonAdd.addEventListener("click",addTask);
 
 for(let i=1;i<userFilter.length;i++){
     userFilter[i].addEventListener("click",function(event){ //----
+        //console.log(i)
         filter(event);
     });
 }
@@ -34,7 +35,7 @@ function addTask(){
     render();
 }
 
-function render(currentState){
+function render(){
     let taskBoard ="";
 
     for(let i=0; i < taskList.length; i++){
@@ -80,25 +81,24 @@ function taskCheck(id){
             break;
         }
     }
+    console.log(taskList)
     render();
 }
 
 function filter(event){
-    currentState = event.target.id;
-    if( currentState == "tab-all"){
-        render();
-        console.log("실행0")
-    }else if( currentState == "tab-done"){
-        console.log("실행1")
+    if(event){
+        filterList = [];        
+        currentState = event.currentTarget.id;
+    }
+     if( currentState == "tab-done"){
         for(let i=0; i < taskList.length; i++){
             if(taskList[i].isComplete == false){
                 filterList.push(taskList[i]);
             }
         }
         taskList = filterList;
-
-        render();
     }
+    render();
     
 
 }
